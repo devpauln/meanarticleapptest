@@ -6,17 +6,17 @@
 var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  Article = mongoose.model('Article');
+  Dataset = mongoose.model('Dataset');
 
 /**
  * Globals
  */
-var user, article;
+var user, dataset;
 
 /**
  * Unit tests
  */
-describe('Article Model Unit Tests:', function() {
+describe('Dataset Model Unit Tests:', function() {
   beforeEach(function(done) {
     user = new User({
       firstName: 'Full',
@@ -28,9 +28,9 @@ describe('Article Model Unit Tests:', function() {
     });
 
     user.save(function() { 
-      article = new Article({
-        name: 'Article Name',
-        user: user
+      dataset = new Dataset({
+        // Add model fields
+        // ...
       });
 
       done();
@@ -39,28 +39,17 @@ describe('Article Model Unit Tests:', function() {
 
   describe('Method Save', function() {
     it('should be able to save without problems', function(done) {
-      this.timeout(0);
-      return article.save(function(err) {
+      return dataset.save(function(err) {
         should.not.exist(err);
-        done();
-      });
-    });
-
-    it('should be able to show an error when try to save without name', function(done) { 
-      article.name = '';
-
-      return article.save(function(err) {
-        should.exist(err);
         done();
       });
     });
   });
 
   afterEach(function(done) { 
-    Article.remove().exec(function(){
-      User.remove().exec(function(){
-        done();  
-      });
-    });
+    Dataset.remove().exec();
+    User.remove().exec();
+
+    done();
   });
 });

@@ -10,20 +10,26 @@ var mongoose = require('mongoose'),
  * Article Schema
  */
 var ArticleSchema = new Schema({
+  name: {
+    type: String,
+    default: '',
+    required: 'Please fill Article name',
+    trim: true
+  },
+  size: {
+    type: Number,
+    min: 0,
+    max: 1000000,
+    default: 0
+  },
+  description: {
+    type: String,
+    required: 'Please fill description',
+    trim: true
+  },
   created: {
     type: Date,
     default: Date.now
-  },
-  title: {
-    type: String,
-    default: '',
-    trim: true,
-    required: 'Title cannot be blank'
-  },
-  content: {
-    type: String,
-    default: '',
-    trim: true
   },
   user: {
     type: Schema.ObjectId,
